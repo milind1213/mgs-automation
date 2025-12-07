@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import requestPayload from './POST-article.json';
+
 export const generateArticlePayload = () => {
     return {
         article: {

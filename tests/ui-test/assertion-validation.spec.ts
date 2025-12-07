@@ -1,5 +1,5 @@
 import {test} from '@playwright/test';
-import {expect} from '../utils/custom-expects';
+import {expect} from '../../utils/custom-expects';
 
 test('Checking Custom Assertions Test Example', async ({ page }) => {
     await page.goto('https://conduit.bondaracademy.com/');

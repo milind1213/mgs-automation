@@ -1,15 +1,17 @@
-import { test } from '../fixtures/fixtures';
-import { expect } from '../utils/custom-expects';
-import requestPayload from '../rest-objects/request-objects/POST-article.json';
+import { test } from '../../fixtures/base-fixture';
+import { expect } from '../../utils/custom-expects';
+import requestPayload from '../../rest-objects/request-objects/POST-article.json';
 import { faker } from '@faker-js/faker'; 
-import { generateArticlePayload,generateNewRandomArticlesPayload} from '../rest-objects/request-objects/articles-payloads';
+import { generateArticlePayload, generateNewRandomArticlesPayload } from '../../rest-objects/request-objects/articles-payloads';
 
 test('Create and Delete Article', async ({ api }) => {
     // 1 - Deep copy (JSON parse/stringify)
      const articlePayload = JSON.parse(JSON.stringify(requestPayload))
      const title = articlePayload.article.title = faker.lorem.words(3)
+
     // 2 - Direct function   
     const payload = generateArticlePayload()
+    
     // 3 - With structured clone
     const newPayload = generateNewRandomArticlesPayload()
 

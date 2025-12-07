@@ -1,7 +1,7 @@
 import { request } from "@playwright/test";
 import { config } from "../../env-config";
 import { APILogger } from "../../utils/api-logger";
-import { RequestHandler } from "../CommonREST/request-handler";
+import { RequestHandler } from "./base-requests";
 
 export async function createToken(email: string, password: string) {
     const context = await request.newContext()

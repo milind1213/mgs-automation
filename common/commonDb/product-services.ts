@@ -1,4 +1,4 @@
-import { getDataArray, getFirstRow, getData } from '../../utils/mysql-database-util';
+import { getDataArray, getFirstRow, getData } from '../../utils/mysql-database-utils';
 
 export async function getBrands() {
   return await getDataArray('SELECT * FROM brands');

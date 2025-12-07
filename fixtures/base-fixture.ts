@@ -1,5 +1,5 @@
 import { test as base } from '@playwright/test';
-import { RequestHandler } from '../common/CommonREST/request-handler';
+import { RequestHandler } from '../common/commonREST/base-requests';
 import { APILogger } from '../utils/api-logger';
 import { setCustomExpectLogger } from '../utils/custom-expects';
 import { config } from '../env-config';

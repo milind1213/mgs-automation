@@ -5,16 +5,11 @@ import { faker } from '@faker-js/faker';
 import { generateArticlePayload, generateNewRandomArticlesPayload } from '../../rest-objects/request-objects/articles-payloads';
 
 test('Create and Delete Article', async ({ api }) => {
-    // 1 - Deep copy (JSON parse/stringify)
-     const articlePayload = JSON.parse(JSON.stringify(requestPayload))
-     const title = articlePayload.article.title = faker.lorem.words(3)
-
-    // 2 - Direct function   
-    const payload = generateArticlePayload()
+    const articlePayload = JSON.parse(JSON.stringify(requestPayload)) // 1 - Deep copy (JSON parse/stringify)
+    const payload = generateArticlePayload() //direct function call
+    const newPayload = generateNewRandomArticlesPayload() // structuredClone(payload)
     
-    // 3 - With structured clone
-    const newPayload = generateNewRandomArticlesPayload()
-
+    // Create Article
     const createArticleResponse = await api
         .path('/articles')
         .body(newPayload)
@@ -22,18 +17,21 @@ test('Create and Delete Article', async ({ api }) => {
     await expect(createArticleResponse).shouldMatchSchema('articles', 'POST_articles', true)
     expect(createArticleResponse.article.title).shouldEqual(newPayload.article.title)
     const slugId = createArticleResponse.article.slug
-
+    
+    // Get Articles
     const articlesResponse = await api
         .path('/articles')
         .params({ limit: 10, offset: 0 })
         .getRequest(200)
     await expect(articlesResponse).shouldMatchSchema('articles', 'GET_articles', true)
     expect(articlesResponse.articles[0].title).shouldEqual(newPayload.article.title)
-
+    
+    // Delete Article
     await api
         .path(`/articles/${slugId}`)
         .deleteRequest(204)
-
+    
+    // Get Articles Again
     const articlesResponseTwo = await api
         .path('/articles')
         .params({ limit: 10, offset: 0 })
